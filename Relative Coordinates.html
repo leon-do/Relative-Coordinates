@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div> coordinates of window </div>
+	<div id="txtX"></div>
+	<div id="txtY"></div>
+	<div id="box" > Box coordinates
+		<p id=boxX></p>
+		<p id=boxY></p>
+	</div>
+</body>
+</html>
+
+<script>
+
+document.onmousemove = getCoordinates;
+
+function getCoordinates(a){
+	// get coordinates of window
+	var x = a.clientX;
+	var y = a.clientY;
+
+	// display coordinates of window
+	document.getElementById("txtX").innerHTML = x;
+	document.getElementById("txtY").innerHTML = y;
+
+
+
+
+
+
+	//draw box
+	boxHeight = 200;
+	boxWidth = 400;
+	document.getElementById("box").style.height = boxHeight + "px";
+	document.getElementById("box").style.width = boxWidth + "px";
+	document.getElementById("box").style.border = "1px solid red";
+	document.getElementById("box").style.float = "right";
+
+
+	// get coordinates of box
+	var xBox = x - document.getElementById("box").offsetLeft;
+	var yBox = y - document.getElementById("box").offsetTop;
+
+	// put limits on box (3x3 grid) ****Needs work****
+	//top left
+	if (xBox < 0 && yBox < 0){ 
+		xBox = 0;
+		yBox = 0;
+	}
+	// bottom right
+	if (yBox > boxHeight && xBox > boxWidth){  
+		yBox = boxHeight;
+		xBox = boxWidth;
+	}
+	// bottom left
+	if (yBox > boxHeight && xBox < 0){
+		yBox = boxHeight;
+		xBox = 0;
+	}
+	// top right
+	if (yBox < 0 && xBox > boxWidth){
+		yBox = 0;
+		xBox = boxWidth;
+	}
+
+
+
+	// display box coordinates
+	document.getElementById("boxX").innerHTML = xBox;
+	document.getElementById("boxY").innerHTML = yBox;
+
+}
+</script>
